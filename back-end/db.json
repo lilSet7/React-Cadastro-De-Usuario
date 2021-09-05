@@ -1,14 +1,17 @@
 {
-    "users": [{
-        "id": 1,
-        "name": "felipe andre",
-        "email": "felipeteste@gmail.com"
-    },
+  "users": [
     {
-        "id": 1,
-        "name": "jse ona",
-        "email": "teste@gmail.com"
+      "name": "felipe andre  da silva ",
+      "cpf": "33132463643",
+      "veichle": "onix",
+      "placa": "354235",
+      "andrees": "kguyfufkuyfuif",
+      "cep": "vjjfugdutdgd",
+      "service": "hgifguyfudfu",
+      "endDate": "",
+      "email": "felipe@teste.com",
+      "date": "2203-01-10",
+      "id": 2
     }
-
-]
+  ]
 }
