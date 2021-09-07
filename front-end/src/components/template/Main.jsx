@@ -1,9 +1,9 @@
 import './Main.css';
 import React from 'react';
 
-import Header from './Header'
+import {Header} from './Header'
 
-export default props =>
+export const Main = props =>
     <React.Fragment>
         <Header {...props} />
         <main className='content container-fluid'>

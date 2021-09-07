@@ -1,10 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-import Main from '../template/Main'
+import {Main} from '../template/Main'
 
 const baseUrl = 'http://localhost:3001/users'
 const propsHeader = {
-  icon: 'user',
+  icon: 'users',
   title: 'Usuarios cadastrados',
   subtitle: 'Usuarios',
 

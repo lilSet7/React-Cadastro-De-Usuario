@@ -1,16 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import Main from '../template/Main';
+import {Main} from '../template/Main';
 
 const headerProps = {
-  icon: 'users',
+  icon: 'address-book',
   title: 'Cadastro',
   subtitle: 'Cadastro de usuarios'
 }
 
 const baseUrl = 'http://localhost:3001/users';
 const initialState = {
-  user: {name: '', cpf: '', veichle: '', placa: '', andrees: '', cep: '', service: '', endDate: '' },
+  user: {name: '', cpf: '', veichle: '', placa: '', andrees: '', cep: '', service: '', endDate: '', value: '' },
   list: []
 }
 
@@ -72,22 +72,6 @@ export default class FormUser extends React.Component {
                     />
 
                 </div>
-              </div >
-
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-                  <label>E-mail</label>
-
-                  <input
-                    type='email'
-                    className='form-control'
-                    name='email'
-                    placeholder='Digite seu email'
-                    value={this.state.user.email}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                  </div>
               </div >
 
               <div className='col-12 col-md-6' >
@@ -198,7 +182,25 @@ export default class FormUser extends React.Component {
                     />
 
                 </div>
+
               </div>
+
+              <div className='col-12 col-md-6' >
+                <div className='form-group'>
+                  <label>Valor</label>
+
+                  <input
+                    type='email'
+                    className='form-control'
+                    name= 'value'
+                    placeholder='Digite o Valor'
+                    value={this.state.user.value}
+                    onChange={e => this.updateField(e)}
+                    />
+
+                  </div>
+              </div >
+
             </div >
             <hr/>
             <div className='row' >

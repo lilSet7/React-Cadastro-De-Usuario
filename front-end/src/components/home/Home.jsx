@@ -1,7 +1,7 @@
 import React from 'react';
-import Main from '../template/Main';
+import {Main} from '../template/Main';
 
-export default props =>
+export const Home = props =>
   <Main icon='home' title='Inicio' subtitle='cadastro de usuario'>
     <div className='display-4' > Bem Vindo!</div>
     <hr/>

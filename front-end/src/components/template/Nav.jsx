@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-export default props =>
+export const Nav = props =>
     <aside className="menu-area">
         <nav className='menu'>
           {/* Refatorar mais tarde */}
@@ -12,7 +12,7 @@ export default props =>
             <i className='fa fa-home'></i> Início
           </Link>
           <Link to='/register'>
-            <li className='fa fa-users'></li> Cadastro
+            <li className='fa fa-address-book'></li> Cadastro
           </Link>
           <Link to='/users'>
             <li className='fa fa-users' ></li> Usuários

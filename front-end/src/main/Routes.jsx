@@ -1,12 +1,11 @@
 import React from 'react';
 import { Switch, Route, Redirect  } from 'react-router';
-import Home from '../components/home/Home';
-import UserCrud from '../components/user/UserCrud';
+import {Home} from '../components/home/Home';
 import FormUser from '../components/register/FormUser';
 import ViewUsers from '../components/viewUsers/ViewUsers';
 
 //config routes
-export default props =>
+export const Routes = props =>
   <Switch>
     <Route exact path='/' component={Home} />
     <Route exact path='/register' component={FormUser} />
