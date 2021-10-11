@@ -2,15 +2,42 @@
   "users": [
     {
       "name": "felipe andre  da silva ",
+      "cpf": "874-588-455-45",
+      "veichle": "onix turbo",
+      "placa": "321546",
+      "andrees": "av rio largo",
+      "cep": "510021-5",
+      "service": "instalação kit g5 ",
+      "endDate": "2022-02-01",
+      "value": "5.000",
+      "returns": [
+        {
+          "title": "1333-01-10",
+          "body": "10"
+        },
+        {
+          "title": "0524-02-01",
+          "body": "regulagem no gas"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "name": "fulano de tal",
       "cpf": "33132463643",
       "veichle": "onix",
       "placa": "354235",
-      "andrees": "kguyfufkuyfuif",
-      "cep": "vjjfugdutdgd",
-      "service": "hgifguyfudfu",
-      "endDate": "",
-      "email": "felipe@teste.com",
-      "date": "2203-01-10",
+      "andrees": "av rio largo",
+      "cep": "510021-5",
+      "service": "instalação kit g5 ",
+      "endDate": "1999-02-10",
+      "value": "20.500",
+      "returns": [
+        {
+          "title": "2021-10-02",
+          "body": "vazamento na valvula de abastecimento "
+        }
+      ],
       "id": 2
     }
   ]

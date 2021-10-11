@@ -1,62 +1,59 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { Main } from '../template/Main';
+import { useHistory, useParams } from 'react-router-dom/cjs/react-router-dom.min';
 import axios from 'axios';
-import {Main} from '../template/Main';
+
 
 const headerProps = {
-  icon: 'address-book',
-  title: 'Cadastro',
-  subtitle: 'Cadastro de usuarios'
+    icon: 'users',
+    title: 'Atualizar Cadastro ',
+    subtitle: 'Atualize o Cadastro'
+};
+
+export function UpdateUser(props){
+
+    // localStorage5
+    const storageUserJson = localStorage.getItem('user')
+    const storageUser = JSON.parse(storageUserJson)
+
+    const {id} = useParams()
+    const history = useHistory()
+    const [user, setUser] = useState(storageUser)
+    const baseUrl = `http://localhost:3001/users/${id}`
+
+    // Eventos
+    const handleAction = () => {
+      const userModal = {
+        id: user.id,
+        name: user.name,
+        cpf: user.cpf,
+        veichle: user.veichle,
+        placa: user.placa,
+        endDate: user.endDate,
+        cep: user.cep,
+        andrees: user.andrees,
+        service: user.service,
+        value: user.value,
+        returns: user.returns
 }
 
-const baseUrl = 'http://localhost:3001/users';
-const initialState = {
-  user: {name: '', cpf: '', veichle: '', placa: '', andrees: '', cep: '', service: '', endDate: '', value: '', returns: [] },
-  list: []
+      axios.put(baseUrl, userModal)
+      localStorage.clear()
+      history.push('/users')
+
+    }
+
+    const handleUpdateInput = (e) => {
+      const items = {...user}
+      items[e.target.name] = e.target.value
+      setUser(items)
 }
 
-
-export default class FormUser extends React.Component {
-
-  state = { ...initialState }
-
-  componentDidMount(){
-    axios(baseUrl).then(response => {
-      this.setState({list: response.data})
-    })
-  }
-
-
-  clear() {
-    this.setState({user: initialState.user})
-  }
-
-  save(){
-    const user = this.state.user;
-    const method = user.id ? 'put' : 'post';
-    const url = user.id ?  `${baseUrl}/${user.id}` : baseUrl
-    axios[method](url, user)
-      .then(resp => {
-        const list = this.getUpdateList(resp.data)
-        this.setState({user: initialState.user, list})
-      })
-  }
-
-  getUpdateList(user, add=true){
-    const list = this.state.list.filter(u => u.id !== user.id)
-    if(add) list.unshift(user)
-    return list
-  }
-
-  updateField(event){
-    const user = { ...this.state.user }
-    user[event.target.name] = event.target.value
-    this.setState({ user })
-
-  }
-  render(){
-    return(
-      <Main {...headerProps}>
-          <div className='form' >
+    const formRender = () => {
+        const items = user
+        return (
+            <div>
+            <div className='form' >
             <div className='row' >
               <div className='col-12 col-md-6' >
                 <div className='form-group'>
@@ -67,8 +64,9 @@ export default class FormUser extends React.Component {
                     className='form-control'
                     name='name'
                     placeholder='Digite seu nome'
-                    value={this.state.user.name}
-                    onChange={e => this.updateField(e)}
+                    value={items.name}
+                    onChange={handleUpdateInput}
+
                     />
 
                 </div>
@@ -83,8 +81,8 @@ export default class FormUser extends React.Component {
                     className='form-control'
                     name='cpf'
                     placeholder='Digite seu Cpf'
-                    value={this.state.user.cpf}
-                    onChange={e => this.updateField(e)}
+                    value={items.cpf}
+                    onChange={handleUpdateInput}
                     />
 
                 </div>
@@ -98,8 +96,8 @@ export default class FormUser extends React.Component {
                     className='form-control'
                     name='veichle'
                     placeholder='Digite seu Veiculo'
-                    value={this.state.user.veichle}
-                    onChange={e => this.updateField(e)}
+                    value={items.veichle}
+                    onChange={handleUpdateInput}
                     />
 
                 </div>
@@ -113,8 +111,8 @@ export default class FormUser extends React.Component {
                     className='form-control'
                     name='placa'
                     placeholder='Digite seu Placa'
-                    value={this.state.user.placa}
-                    onChange={e => this.updateField(e)}
+                    value={items.placa}
+                    onChange={handleUpdateInput}
                     />
 
                 </div>
@@ -129,8 +127,8 @@ export default class FormUser extends React.Component {
                     className='form-control'
                     name='andrees'
                     placeholder='Digite seu Endereço'
-                    value={this.state.user.andrees}
-                    onChange={e => this.updateField(e)}
+                    value={items.andrees}
+                    onChange={handleUpdateInput}
                     />
 
                 </div>
@@ -145,8 +143,8 @@ export default class FormUser extends React.Component {
                     className='form-control'
                     name='cep'
                     placeholder='Cep'
-                    value={this.state.user.cep}
-                    onChange={e => this.updateField(e)}
+                    value={items.cep}
+                    onChange={handleUpdateInput}
                     />
 
                 </div>
@@ -161,8 +159,8 @@ export default class FormUser extends React.Component {
                     className='form-control'
                     name='service'
                     placeholder='Tipo De Serviço'
-                    value={this.state.user.service}
-                    onChange={e => this.updateField(e)}
+                    value={items.service}
+                    onChange={handleUpdateInput}
                     />
 
                 </div>
@@ -177,8 +175,8 @@ export default class FormUser extends React.Component {
                     className='form-control'
                     name='endDate'
                     placeholder='Digite seu Cpf'
-                    value={this.state.user.endDate}
-                    onChange={e => this.updateField(e)}
+                    value={items.endDate}
+                    onChange={handleUpdateInput}
                     />
 
                 </div>
@@ -194,8 +192,8 @@ export default class FormUser extends React.Component {
                     className='form-control'
                     name= 'value'
                     placeholder='Digite o Valor'
-                    value={this.state.user.value}
-                    onChange={e => this.updateField(e)}
+                    value={items.value}
+                    onChange={handleUpdateInput}
                     />
 
                   </div>
@@ -205,18 +203,26 @@ export default class FormUser extends React.Component {
             <hr/>
             <div className='row' >
               <div  className='col-12 d-flex justify-content-end'>
-                <button className='btn btn-primary' onClick={(e) => this.save(e)}>
+                <button className='btn btn-primary' onClick={handleAction}>
                   Salvar
                 </button>
-                <button className='btn btn-secondary ml-2' onClick={(e) => this.clear(e)}>
+        <button className='btn btn-secondary ml-2'>
                   Cancelar
                 </button>
               </div>
             </div>
           </div >
 
-  </Main>
-    )
-  }
+        </div>
+        )
+    }
 
-}
+
+
+    return (
+        <Main {...headerProps}>
+            {formRender()}
+        </Main>
+
+    )
+};

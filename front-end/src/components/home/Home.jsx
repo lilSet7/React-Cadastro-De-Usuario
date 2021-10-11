@@ -6,5 +6,5 @@ export const Home = props =>
     <div className='display-4' > Bem Vindo!</div>
     <hr/>
     <p>Progama desenvolvido para cadastro de usuario</p>
-
   </Main>
+ 
