@@ -2,10 +2,9 @@ import { React, useState } from 'react' ;
 import axios from 'axios';
 import './style.css';
 import { Main } from '../template/Main';
+import { Profile } from '../template/Profile'
 import { useHistory, useParams } from 'react-router-dom';
-
-
-
+import { reverseDate } from '../../Utility'
 
 const propsHeader = {
   icon: 'user',
@@ -22,8 +21,8 @@ export const ViewUser = (props) => {
 
 
 // states
-  const [user, setUser] = useState(storageUser);
-  const [useTitleReturn, setTitleReturn] = useState('');
+  const [user, setUser] = useState({...storageUser});
+  const [useDateReturn, setDateReturn] = useState('');
   const [useBodyReturn, setBodyReturn] = useState('');
   const {id} = useParams();
   const history = useHistory();
@@ -33,54 +32,38 @@ export const ViewUser = (props) => {
 
   const handleAction = (e) => {
     const items = {...user}
-    items.returns.push({title: useTitleReturn, body: useBodyReturn})
+    items.returns.push({title: useDateReturn, body: useBodyReturn})
     setUser(items)
-    axios.put(baseUrl, user).then((response) => {
-      console.log(response.data)
-    })}
+    axios.put(baseUrl, user)
+    setDateReturn('')
+    setBodyReturn('')
+  }
 
   const remove = (item, index) => {
     item.returns.splice(index, 1)
     axios.put(baseUrl, item)
-    console.log(item)
     history.push(`/user/${id}`)
     }
 
 
+
   return (
     <Main {...propsHeader}>
-      <div className="perfil">
-        <div className="header-perfil">
-          <h3>Dados Persoais: </h3>
-          <hr/>
-        </div>
-        <div className="body-perfil">
-          <p>Nome: {user.name}</p>
-          <p>Cpf: {user.cpf}</p>
-          <p>Veiculo: {user.veichle}</p>
-          <p>Placa do Veiculo: {user.placa}</p>
-          <p>Cor: {user.color}</p>
-          <p>Mecanico(eletricista): {user.dianteira}</p>
-          <p>Mecanico(montador): {user.traseira}</p>
-          <p>Endereço: {user.andrees}</p>
-          <p>Cep: {user.cep}</p>
-          <p>Fim de Garantia: {user.endDate}</p>
-          <p>Serviço: {user.service}</p>
-          <p>Valor: R${user.value}</p>
-        </div>
-        <hr/>
-      </div>
+      <Profile
+        user={user}
+        reverseDate={reverseDate}
+         />
+
       <div className="returns">
-        <h3>Retornos</h3>
+        <h3>Retornos:</h3>
         <div className='row'>
           { user.returns.map( (item, index) => {
             return (
-          <div class="col-sm-3">
-            <div class="card" key='index'>
-              <div class="card-body mb-3">
-                <h5 class="card-title mb-3">Data: {item.title}</h5>
-                <h6 className='card-subtitle mb-3'></h6>
-                <p class="card-text">Motivo Do Retorno: {item.body}</p>
+          <div key={index} className="col-sm-3">
+            <div className="card">
+              <div className="card-body mb-3">
+                <h5 className="card-title mb-3">Data: {reverseDate(item.title)}</h5>
+                <p className="card-text">Motivo Do Retorno: {item.body}</p>
 
 
                   <button className='btn btn-danger mr-3' onClick={() => remove(user, index)}>
@@ -93,30 +76,30 @@ export const ViewUser = (props) => {
 )})}
         </div>
         </div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Adicionar Retornos</button>
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Adicionar Retornos</button>
 
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Motivo do Retorno</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div className="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">Motivo do Retorno</h5>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   <form>
-                    <div class="mb-3">
-                      <label for="date" class="col-form-label">Data</label>
-                      <input onChange={(e) => setTitleReturn(e.target.value)} type="date" class="form-control" id="date"/>
+                    <div className="mb-3">
+                      <label htmlFor="date" className="col-form-label">Data</label>
+                      <input onChange={(e) => setDateReturn(e.target.value)} type="date" className="form-control" id="date"/>
                     </div>
-                    <div class="mb-3">
-                      <label for="description" class="col-form-label">Descrição do Retorno</label>
-                      <textarea onChange={(e) => setBodyReturn(e.target.value)} class="form-control" id="description"></textarea>
+                    <div className="mb-3">
+                      <label htmlFor="description" className="col-form-label">Descrição do Retorno</label>
+                      <textarea onChange={(e) => setBodyReturn(e.target.value)} className="form-control" id="description"></textarea>
                     </div>
                   </form>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                  <button type="button" class="btn btn-primary" onClick={handleAction} >Enviar </button>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <button type="button" className="btn btn-primary" onClick={handleAction} >Enviar </button>
                 </div>
               </div>
             </div>

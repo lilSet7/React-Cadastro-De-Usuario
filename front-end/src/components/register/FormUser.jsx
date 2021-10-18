@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {Main} from '../template/Main';
+import { Form } from '../template/Form'
 
 const headerProps = {
   icon: 'address-book',
@@ -10,7 +11,22 @@ const headerProps = {
 
 const baseUrl = 'http://localhost:3001/users';
 const initialState = {
-  user: {name: '', cpf: '', veichle: '', placa: '', andrees: '', cep: '', service: '', endDate: '', value: '', returns: [] },
+  user: {
+    name: '', 
+    cpf: '', 
+    veichle: '', 
+    placa: '',
+    cor: '',
+    dataToVeichle: '',
+    frontMecanic: '',
+    backMecanic: '', 
+    andrees: '', 
+    cep: '', 
+    service: '', 
+    endDate: '', 
+    value: '', 
+    returns: []
+   },
   list: []
 }
 
@@ -51,171 +67,31 @@ export default class FormUser extends React.Component {
     const user = { ...this.state.user }
     user[event.target.name] = event.target.value
     this.setState({ user })
+    console.log('event')
 
   }
   render(){
     return(
       <Main {...headerProps}>
-          <div className='form' >
-            <div className='row' >
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-
-                  <label>Nome</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    name='name'
-                    placeholder='Digite seu nome'
-                    value={this.state.user.name}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                </div>
-              </div >
-
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-                  <label>Cpf</label>
-
-                  <input
-                    type='text'
-                    className='form-control'
-                    name='cpf'
-                    placeholder='Digite seu Cpf'
-                    value={this.state.user.cpf}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                </div>
-              </div>
-
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-                  <label>Veiculo</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    name='veichle'
-                    placeholder='Digite seu Veiculo'
-                    value={this.state.user.veichle}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                </div>
-              </div>
-
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-                  <label>Placa</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    name='placa'
-                    placeholder='Digite seu Placa'
-                    value={this.state.user.placa}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                </div>
-              </div>
-
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-                  <label>Endereço</label>
-
-                  <input
-                    type='text'
-                    className='form-control'
-                    name='andrees'
-                    placeholder='Digite seu Endereço'
-                    value={this.state.user.andrees}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                </div>
-              </div>
-
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-                  <label>Cep</label>
-
-                  <input
-                    type='text'
-                    className='form-control'
-                    name='cep'
-                    placeholder='Cep'
-                    value={this.state.user.cep}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                </div>
-              </div>
-
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-                  <label>Serviço</label>
-
-                  <input
-                    type='text'
-                    className='form-control'
-                    name='service'
-                    placeholder='Tipo De Serviço'
-                    value={this.state.user.service}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                </div>
-              </div>
-
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-                  <label>Fim De Garantia</label>
-
-                  <input
-                    type='date'
-                    className='form-control'
-                    name='endDate'
-                    placeholder='Digite seu Cpf'
-                    value={this.state.user.endDate}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                </div>
-
-              </div>
-
-              <div className='col-12 col-md-6' >
-                <div className='form-group'>
-                  <label>Valor</label>
-
-                  <input
-                    type='text'
-                    className='form-control'
-                    name= 'value'
-                    placeholder='Digite o Valor'
-                    value={this.state.user.value}
-                    onChange={e => this.updateField(e)}
-                    />
-
-                  </div>
-              </div >
-
-            </div >
-            <hr/>
-            <div className='row' >
-              <div  className='col-12 d-flex justify-content-end'>
-                <button className='btn btn-primary' onClick={(e) => this.save(e)}>
-                  Salvar
-                </button>
-                <button className='btn btn-secondary ml-2' onClick={(e) => this.clear(e)}>
-                  Cancelar
-                </button>
-              </div>
-            </div>
-          </div >
-
-  </Main>
+         <Form
+           name={this.state.user.name}
+           cpf={this.state.user.cpf}
+           veichle={this.state.user.veichle}
+           placa={this.state.user.placa}
+           andrees={this.state.user.andrees}
+           cep={this.state.user.cep}
+           service={this.state.user.service}
+           endDate={this.state.user.endDate}
+           value={this.state.user.value}
+           cor={this.state.user.cor}
+           dataToVeichle={this.state.user.dataToVeichle}
+           frontMecanic={this.state.user.frontMecanic}
+           backMecanic={this.state.user.backMecanic}
+           onChange={(e) => this.updateField(e)}
+           save={() => this.save()}
+           clear={() => this.clear()}
+           />
+      </Main>
     )
   }
 
